@@ -69,9 +69,29 @@ CMD     [ "/myapp/cloner" ]
 #### 5. git에 레포지토리 생성
 ![1695716007172](image/실습2_git이랑연동/1695716007172.png)
 
-#### 5. git에 레포지토리 생성
-- 첫번째 컨테이너 실행 ⇒ git clone 후 1분 단위로 git pull 하는지 확인
+#### 5. 첫번째 컨테이너 실행 
+- git clone 후 1분 단위로 git pull 하는지 확인
 
-``` shell
-docker container run -d -e GITHUB_URL=https://github.com/mandoo-it/sidecar.git -v c:\docker\sidecar\html\:/data --name cloner_container cloner_container:1.0
-```
+    ``` powershell
+    docker container run -d -e GITHUB_URL=https://github.com/mandoo-it/sidecar.git -v c:\docker\sidecar\html\:/data --name cloner_container cloner_container:1.0
+    ```
+
+    ![1695716591247](image/실습2_git이랑연동/1695716591247.png)
+
+#### 5. 컨테이너 로그 확인
+- 5에서 --name 옵션으로 컨테이너 이름을 지정해줘서 로그를 확인 할 수 있다. 
+    ```
+    docker container logs cloner_container
+    ```
+    ![1695716799083](image/실습2_git이랑연동/1695716799083.png)
+
+    - 1분에 한번씩 git pull이 잘 되는 것으로 확인된다. 
+
+#### 6. 두번째 컨테이너 실행 ⇒ nginx 이미지를 이용해서 컨테이너를 실행 (호스트와 컨테이너의 서비스 포트를 동일하게 설정)
+
+![1695718132275](image/실습2_git이랑연동/1695718132275.png)
+
+#### 6. 웹 서버 실행화면 
+![1695718200233](image/실습2_git이랑연동/1695718200233.png)
+
+- git의 index.html를 바꾸면 1분 뒤 바뀐다. 
