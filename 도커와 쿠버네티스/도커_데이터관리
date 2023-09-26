@@ -1,0 +1,30 @@
+
+## 도커에서 데이터 관리
+
+![1695690983602](image/도커_데이터관리/1695690983602.png)
+
+## volume
+- 호스트의 파일 시스템 내에 특정 영역(리눅스의 경우, /var/lib/docker/volumes/)을 도커가 사용, 관리
+- 도커가 아닌 다른 프로세스에서는 해당 영역 접근이 불가능 
+- 가장 추천하는 방식
+
+## bind mount
+- 호스트의 파일 시스템 자체를 사용 
+- 호스트와 컨테이너가 설정 파일을 공유하거나 호스트에서 개발하고 컨테이너로 배포하는 방식으로 사용 
+
+
+
+## tmpfs mount
+- 호스트의 파일 시스템 대신 메모리에 저장하는 방식
+- non-persistant data를 다룰 때는 tmpfs mount가 가장 중요
+    - on-persitant data는 로그인할 때의 password 같은 유지될 필요 없는 데이터
+
+### 호스트 볼륨 공유 예
+- MySQL 이미지를 이용해서 데이터베이스 컨테이너를 실행
+``` 
+docker container run -d --name wordpressdb_hostvolume -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=wordpress -v c:\docker\mysql_data:/var/lib/mysql mysql:5.7
+
+```
+
+   
+
